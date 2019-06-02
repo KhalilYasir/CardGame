@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 
 public class PlayGameWithGUI {
 	public final static int NPLAYERS = 4;     // Total number of players including computer.  
-	public final static int NPLAYER_GAME = 2; // How many players will be humans?  
+	public static int NPLAYER_GAME = 2; // How many players will be humans?  
 	public final static int NCARDS = 52;	  // Total number of cards used in game.	
 	public static final int CARDSperPLAYER = NCARDS/NPLAYERS; //Number of Cards given to per player..
 	public final static int NSHUFFLE = 600;  // Number of times deck of cards will be shuffled.
@@ -53,6 +53,27 @@ public class PlayGameWithGUI {
 			        deck.shuffle(NSHUFFLE); //Shuffling the deck for NSHUFFLE times.
 			        
 			        Player[] players = new Player[NPLAYERS]; //Initializing players.
+			        
+			        String input; int convInt;
+			        do {
+				        input = JOptionPane.showInputDialog("Number of players?");
+				        
+				        while(!tryParseInt(input)) {
+				        	JOptionPane.showMessageDialog(null, "Incorrect input."); //Prompt User.
+				        	input = JOptionPane.showInputDialog("Number of players?");
+				        }
+				        
+				        convInt = Integer.valueOf(input);
+				        
+				        if(convInt<1 || convInt >2 )
+				        	JOptionPane.showMessageDialog(null, "Input range is from 1 to 2."); //Prompt User.
+				        
+			        }
+			        while ( convInt<1 || convInt >2 );
+			        	
+			        
+			        NPLAYER_GAME = Integer.valueOf(input); 
+			        
 			        for (int i=0; i<NPLAYER_GAME; i++) { //getting data like name from user input for each player.
 			        	String name;
 			        	do 
@@ -84,6 +105,14 @@ public class PlayGameWithGUI {
 		});
 	}
 
+	public static boolean tryParseInt(String value) {  
+	     try {  
+	         Integer.parseInt(value);  
+	         return true;  
+	      } catch (NumberFormatException e) {  
+	         return false;  
+	      }  
+	}
 	/**
 	 * Create the application.
 	 */
